@@ -1,0 +1,45 @@
+### Health Check
+GET http://localhost:3000/api/health
+
+### Listar todos os pets
+GET http://localhost:3000/api/pets
+
+### Listar com filtros (especie, porte, adotado)
+GET http://localhost:3000/api/pets?especie=gato&adotado=false
+
+### Cadastrar pet
+POST http://localhost:3000/api/pets
+Content-Type: application/json
+
+{
+  "nome": "Thor",
+  "especie": "cachorro",
+  "porte": "grande",
+  "idade_meses": 24,
+  "peso_kg": 28.5,
+  "descricao": "Cachorro muito Raivoso."
+}
+
+### Buscar pet por ID
+GET http://localhost:3000/api/pets/1
+
+### Atualizar pet
+PUT http://localhost:3000/api/pets/1
+Content-Type: application/json
+
+{
+  "adotado": true,
+  "descricao": "Adotado pela família Silva."
+}
+
+### Remover pet
+DELETE http://localhost:3000/api/pets/1
+
+### Erro 400 - campos obrigatórios ausentes
+POST http://localhost:3000/api/pets
+Content-Type: application/json
+
+{}
+
+### Erro 404 - pet inexistente
+GET http://localhost:3000/api/pets/999999
