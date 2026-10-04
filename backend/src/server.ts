@@ -32,12 +32,17 @@ app.use(errorHandler);
 async function start(): Promise<void> {
   try {
     await connectDatabase();
+
     app.listen(port, () => {
       console.log(`Caminhões API executando em http://localhost:${port}`);
       console.log(`Swagger UI: http://localhost:${port}/api-docs`);
     });
   } catch (error) {
-    console.error('Não foi possível conectar ao PostgreSQL. Confira o arquivo .env e se o banco está ativo.', error);
+    console.error(
+      'Não foi possível conectar ao PostgreSQL. Confira o arquivo .env e se o banco está ativo.',
+      error
+    );
+
     process.exit(1);
   }
 }
