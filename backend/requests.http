@@ -1,0 +1,35 @@
+### Health
+GET http://localhost:3000/health
+
+### Criar caminhão
+POST http://localhost:3000/caminhoes
+Content-Type: application/json
+
+{
+  "placa": "ABC1D23",
+  "marca": "Scania",
+  "modelo": "R 450",
+  "ano": 2024,
+  "capacidadeCarga": 25.5,
+  "quilometragem": 120000,
+  "tipoCombustivel": "DIESEL_S10",
+  "status": "ATIVO"
+}
+
+### Listar
+GET http://localhost:3000/caminhoes
+
+### Buscar por ID
+GET http://localhost:3000/caminhoes/1
+
+### Atualizar
+PUT http://localhost:3000/caminhoes/1
+Content-Type: application/json
+
+{
+  "quilometragem": 125000,
+  "status": "MANUTENCAO"
+}
+
+### Excluir
+DELETE http://localhost:3000/caminhoes/1

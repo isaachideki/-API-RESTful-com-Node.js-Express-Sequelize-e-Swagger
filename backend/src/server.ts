@@ -1,66 +1,45 @@
-import express, { Request, Response, NextFunction } from 'express';
+import 'dotenv/config';
+import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
-import { sequelize } from './config/database';
-import swaggerDocument from './docs/swagger.json';
-import { appRoutes } from './routes';
-
-dotenv.config();
+import caminhaoRoutes from './routes/caminhaoRoutes';
+import { connectDatabase } from './config/database';
+import { swaggerSpec } from './config/swagger';
+import { errorHandler, notFound } from './middlewares/errorHandler';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = Number(process.env.PORT ?? 3000);
 
-// Middlewares
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '1mb' }));
 
-// Documentação interativa (Swagger UI)
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.get('/', (req: Request, res: Response) => {
-  res.redirect('/api-docs');
+app.get('/', (_req, res) => {
+  res.status(200).json({
+    nome: 'Caminhões API',
+    mensagem: 'API RESTful para gerenciamento de caminhões.',
+    documentacao: '/api-docs',
+    saude: '/health',
+  });
 });
 
-// Rotas da aplicação
-app.use('/api', appRoutes);
+app.get('/health', (_req, res) => res.status(200).json({ status: 'ok' }));
+app.get('/api-docs.json', (_req, res) => res.status(200).json(swaggerSpec));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/caminhoes', caminhaoRoutes);
+app.use(notFound);
+app.use(errorHandler);
 
-// Rota não encontrada
-app.use((req: Request, res: Response) => {
-  res.status(404).json({ erro: 'Rota não encontrada.' });
-});
-
-interface ErroHttp {
-  status?: number;
-  type?: string;
-}
-
-// Tratamento global de erros (ex.: JSON malformado no corpo da requisição)
-app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
-  const erroHttp = (typeof error === 'object' && error !== null ? error : {}) as ErroHttp;
-
-  if (erroHttp.type === 'entity.parse.failed') {
-    res.status(400).json({ erro: 'JSON inválido no corpo da requisição.' });
-    return;
-  }
-
-  console.error('Erro não tratado:', error);
-  res.status(500).json({ erro: 'Erro interno do servidor.' });
-});
-
-async function main(): Promise<void> {
+async function start(): Promise<void> {
   try {
-    await sequelize.authenticate();
-    console.log('Conexão com o PostgreSQL realizada com sucesso.');
-
-    app.listen(PORT, () => {
-      console.log(`Servidor rodando na porta ${PORT}`);
-      console.log(`Swagger UI disponível em: http://localhost:${PORT}/api-docs`);
-      console.log(`Health Check disponível em: http://localhost:${PORT}/api/health`);
+    await connectDatabase();
+    app.listen(port, () => {
+      console.log(`Caminhões API executando em http://localhost:${port}`);
+      console.log(`Swagger UI: http://localhost:${port}/api-docs`);
     });
-  } catch (error: unknown) {
-    console.error('Erro ao conectar com o banco de dados:', error);
+  } catch (error) {
+    console.error('Não foi possível conectar ao PostgreSQL. Confira o arquivo .env e se o banco está ativo.', error);
     process.exit(1);
   }
 }
 
-main();
+void start();
