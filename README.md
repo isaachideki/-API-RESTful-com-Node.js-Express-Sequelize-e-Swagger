@@ -4,17 +4,17 @@ Trabalho prático individual para desenvolvimento de uma API RESTful de tema liv
 
 # DieselParts API
 
-A **DieselParts API** é uma API RESTful desenvolvida para o gerenciamento de peças e componentes destinados a veículos movidos a diesel. O projeto foi desenvolvido como atividade prática, utilizando tecnologias do ecossistema Node.js e seguindo os princípios de uma arquitetura organizada e de fácil manutenção.
+A **DieselParts API** é uma API RESTful desenvolvida para o gerenciamento de  veículos movidos a diesel. O projeto foi desenvolvido como atividade prática, utilizando tecnologias do ecossistema Node.js e seguindo os princípios de uma arquitetura organizada e de fácil manutenção.
 
 A API permite realizar operações de **cadastro, consulta, atualização e exclusão (CRUD)** de peças, mantendo os dados armazenados de forma persistente em um banco de dados PostgreSQL.
 
 Entre as principais funcionalidades estão:
 
-* Cadastro de peças para veículos a diesel;
-* Consulta de peças cadastradas;
-* Busca de uma peça específica por identificador;
-* Atualização dos dados de uma peça;
-* Exclusão de peças;
+* Cadastro de  veículos a diesel;
+* Consulta de veículos cadastrados;
+* Busca de um veículos específico por identificador;
+* Atualização dos dados de um veículos  á Diesel;
+* Exclusão de veículos;
 * Validação dos dados enviados nas requisições;
 * Persistência dos dados utilizando PostgreSQL;
 * Documentação dos endpoints por meio do Swagger;
