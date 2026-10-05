@@ -36,49 +36,6 @@ Através da API é possível:
 
 ---
 
-## 📁 Estrutura do projeto
-
-```text
-DieselVehicles/
-├── src/
-│   ├── config/
-│   │   └── database.ts
-│   │
-│   ├── controllers/
-│   │   └── VeiculoController.ts
-│   │
-│   ├── models/
-│   │   └── Veiculo.ts
-│   │
-│   ├── routes/
-│   │   └── veiculoRoutes.ts
-│   │
-│   ├── app.ts
-│   └── server.ts
-│
-├── swagger/
-│   └── swagger.json
-│
-├── .env
-├── .env.example
-├── package.json
-├── tsconfig.json
-└── README.md
-```
-
----
-
-## ⚙️ Requisitos
-
-Para executar o projeto, é necessário ter instalado:
-
-* Node.js;
-* npm;
-* PostgreSQL.
-
-Recomenda-se utilizar versões recentes dessas ferramentas.
-
----
 
 ## 🚀 Instalação
 
