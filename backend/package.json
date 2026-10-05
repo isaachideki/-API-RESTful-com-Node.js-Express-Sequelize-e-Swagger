@@ -11,6 +11,8 @@
     "db:migrate:undo": "sequelize-cli db:migrate:undo"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.117.2",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",

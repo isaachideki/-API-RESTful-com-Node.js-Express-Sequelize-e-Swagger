@@ -24,6 +24,6 @@ export const sequelize = new Sequelize(
 
 export async function connectDatabase(): Promise<void> {
   await sequelize.authenticate();
-await sequelize.sync();
+await sequelize.sync(); 
   console.log('Banco PostgreSQL conectado e tabela caminhoes sincronizada.');
 }
